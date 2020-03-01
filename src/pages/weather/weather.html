@@ -5,5 +5,13 @@
 </ion-header>
 
 <ion-content padding>
-  <h2>Weather in Managua, Nicaragua</h2>
+  <ion-grid>
+    <ion-row *ngIf="currentWeather">
+      <ion-col width-100 class="text-center">
+        <h2>Weather in Managua, Nicaragua</h2>
+        <h4><strong>Current Temp: </strong>{{currentWeather.temperature}}&deg;</h4>
+        <h4>{{currentWeather.name}}</h4>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
