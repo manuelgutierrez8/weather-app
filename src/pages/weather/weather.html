@@ -8,7 +8,6 @@
   <ion-grid>
     <ion-row *ngIf="currentWeather">
       <ion-col width-100 class="text-center">
-        <h2>Weather in Managua, Nicaragua</h2>
         <h4>{{currentWeather.temperature | number:'1.0-0'}} &deg;F</h4>
         <img [src]="currentWeather.image" alt="{{currentWeather.name}}">
         <h4>{{currentWeather.description}}</h4>
