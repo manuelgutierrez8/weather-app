@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { WeatherProvider } from '../../providers/weather/weather-provider';
+import { Geolocation } from '@ionic-native/geolocation';
+import { Diagnostic } from '@ionic-native/diagnostic/ngx';
 
 /**
  * Generated class for the WeatherPage page.
@@ -17,14 +19,29 @@ import { WeatherProvider } from '../../providers/weather/weather-provider';
 export class WeatherPage {
   currentWeather: any;
   error: any;
-  
-  
+  errorLocation: any;
+  currentLocation: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private weatherProvider: WeatherProvider) {
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private weatherProvider: WeatherProvider,
+    private geoLocation: Geolocation, private diagnostic: Diagnostic) {
   }
 
   ionViewWillEnter() {
-    this.weatherProvider.getCurrentWeatherByCity('').subscribe(response => {
+    this.geoLocation.getCurrentPosition().then(resp => {
+      this.currentLocation = {};
+      this.currentLocation.lat = resp.coords.latitude;
+      this.currentLocation.long = resp.coords.longitude;
+      this.getWeatherInformation();
+    }, err => {
+      console.log('Using default coordinates, due to an error');
+      console.log(err);
+      this.getWeatherInformation();
+    });
+  }
+
+  getWeatherInformation() {
+    this.weatherProvider.getCurrentWeatherByCity(this.currentLocation).subscribe(response => {
       if (response.status == 200) {
         let data = response.body;
 

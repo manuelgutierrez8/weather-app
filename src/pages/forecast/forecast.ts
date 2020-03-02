@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { WeatherProvider } from '../../providers/weather/weather-provider';
+import { Geolocation } from '@ionic-native/geolocation';
 
 @IonicPage()
 @Component({
@@ -10,12 +11,27 @@ import { WeatherProvider } from '../../providers/weather/weather-provider';
 export class ForecastPage {
   forecastList: any;
   error: any;
+  currentLocation: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private weatherProvider: WeatherProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private weatherProvider: WeatherProvider,
+    private geoLocation: Geolocation) {
   }
 
   ionViewWillEnter() {
-    this.weatherProvider.getForecastByCity('').subscribe(response => {
+    this.geoLocation.getCurrentPosition().then(resp => {
+      this.currentLocation = {};
+      this.currentLocation.lat = resp.coords.latitude;
+      this.currentLocation.long = resp.coords.longitude;
+      this.getForecastInformation();
+    }, err => {
+      console.log('Using default coordinates, due to an error');
+      console.log(err);
+      this.getForecastInformation();
+    });
+  }
+
+  getForecastInformation() {
+    this.weatherProvider.getForecastByCity(this.currentLocation).subscribe(response => {
       if (response.status == 200) {
         this.createDailyForecast(response.body.list);
       }

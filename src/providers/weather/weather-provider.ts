@@ -12,7 +12,10 @@ import { weatherImages } from '../../enum/weather-images';
 @Injectable()
 export class WeatherProvider {
   apiKey = 'a6c728c6e427f5e9cf14f23a459d898e';
-  defaultLocation = 'Managua,NI';
+  defaultLocation = {
+    lat: 12.1150,
+    long: 86.2362
+  }
   weatherUrl = 'http://api.openweathermap.org/data/2.5/weather';
   forecastUrl = 'http://api.openweathermap.org/data/2.5/forecast'
 
@@ -33,7 +36,13 @@ export class WeatherProvider {
 
   private setQueryString(location) {
     let queryString = '?units=imperial';
-    queryString += '&q=' + (location != '' ? location : this.defaultLocation);
+    //queryString += '&q=' + (location != '' ? location : this.defaultLocation);
+    if (location) {
+      queryString += '&lat=' + location.lat + '&lon=' + location.long;
+    }
+    else {
+      queryString += '&lat=' + this.defaultLocation.lat + '&lon=' + this.defaultLocation.long;
+    }
     queryString += '&APPID=' + this.apiKey;
 
     return queryString;
@@ -41,7 +50,7 @@ export class WeatherProvider {
 
   setWeatherImage(icon: string) {
     let imagePath = 'assets/imgs/';
-    
+
     imagePath += weatherImages[icon] ? weatherImages[icon] : 'dunno.png';
 
     return imagePath;

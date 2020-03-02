@@ -3,6 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
+import { Geolocation  } from "@ionic-native/geolocation";
+import { Diagnostic } from '@ionic-native/diagnostic/ngx';
 
 import { TabsPage } from '../pages/tabs/tabs';
 import { WeatherPage } from '../pages/weather/weather';
@@ -35,7 +37,9 @@ import { WeatherProvider } from '../providers/weather/weather-provider';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    WeatherProvider
+    WeatherProvider,
+    Geolocation,
+    Diagnostic
   ]
 })
 export class AppModule {}
