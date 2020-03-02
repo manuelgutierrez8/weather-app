@@ -1,10 +1,39 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Weather</ion-title>
+    <ion-title>Forecast for Managua, Nicaragua</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h2>Forecast for Managua, Nicaragua</h2>
-  
+  <ion-grid>
+    <ion-row *ngIf="forecastList">
+      <ion-col>
+        <ion-row>
+          <ion-col width-100>
+            <ion-list>
+              <ion-item *ngFor="let day of forecastList">
+                <ion-row class="flex-align-center">
+                  <ion-col class="w-30">
+                    <img [src]="day.icon" alt="{{day.description}}" class="icon">
+                  </ion-col>
+                  <ion-col class="w-70" class="day-info">
+                    <h2><strong>{{day.date | date: 'EE, MMM dd, yyyy'}}</strong></h2>
+                    <h3><strong>{{day.description}}</strong></h3>
+                    <p>Low: {{day.tempMin}}</p>
+                    <p>High: {{day.tempMax}}</p>
+                  </ion-col>
+                </ion-row>
+              </ion-item>
+              <ion-item>
+                <strong>Version: </strong> 1.0.0
+              </ion-item>
+              <ion-item>
+                <strong>Description: </strong> Simple weather app
+              </ion-item>
+            </ion-list>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

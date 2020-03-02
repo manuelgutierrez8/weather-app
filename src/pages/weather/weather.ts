@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { CurrentWeatherProvider } from '../../providers/weather/CurrenWeather';
+import { WeatherProvider } from '../../providers/weather/weather-provider';
 
 /**
  * Generated class for the WeatherPage page.
@@ -17,7 +17,7 @@ import { CurrentWeatherProvider } from '../../providers/weather/CurrenWeather';
 export class WeatherPage {
   currentWeather: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private weatherProvider: CurrentWeatherProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private weatherProvider: WeatherProvider) {
   }
 
   ionViewWillEnter() {

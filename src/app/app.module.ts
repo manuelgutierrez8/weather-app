@@ -10,7 +10,7 @@ import { ForecastPage  } from "../pages/forecast/forecast";
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { CurrentWeatherProvider } from '../providers/weather/CurrenWeather';
+import { WeatherProvider } from '../providers/weather/weather-provider';
 
 @NgModule({
   declarations: [
@@ -35,7 +35,7 @@ import { CurrentWeatherProvider } from '../providers/weather/CurrenWeather';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    CurrentWeatherProvider
+    WeatherProvider
   ]
 })
 export class AppModule {}
