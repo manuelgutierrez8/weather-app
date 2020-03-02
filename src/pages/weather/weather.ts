@@ -16,26 +16,36 @@ import { WeatherProvider } from '../../providers/weather/weather-provider';
 })
 export class WeatherPage {
   currentWeather: any;
+  error: any;
+  
+  
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private weatherProvider: WeatherProvider) {
   }
 
   ionViewWillEnter() {
     this.weatherProvider.getCurrentWeatherByCity('').subscribe(response => {
-      if(response.status == 200 ) {
+      if (response.status == 200) {
         let data = response.body;
 
         this.currentWeather = {};
         this.currentWeather.temperature = data.main.temp;
         this.currentWeather.description = '';
 
-        if(data.weather.length > 0) {
+        if (data.weather.length > 0) {
           this.currentWeather.description = data.weather[0].main;
           this.currentWeather.image = this.weatherProvider.setWeatherImage(data.weather[0].icon);
         }
       }
-      console.log(response);
-    });
+    },
+      err => {
+        console.log(err);
+        this.error = {
+          message: err.error.message,
+          code: err.error.cod
+        }
+      }
+    );
   }
 
 }

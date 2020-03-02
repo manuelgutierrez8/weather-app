@@ -11,6 +11,7 @@ import { debugOutputAstAsTypeScript } from '@angular/compiler';
 })
 export class ForecastPage {
   forecastList: any;
+  error: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private weatherProvider: WeatherProvider) {
   }
@@ -18,21 +19,27 @@ export class ForecastPage {
   ionViewWillEnter() {
     this.weatherProvider.getForecastByCity('').subscribe(response => {
       if (response.status == 200) {
-        //console.log(response.body);
         this.createDailyForecast(response.body.list);
       }
-    });
+    },
+      err => {
+        this.error = {
+          message: err.error.message,
+          code: err.error.cod
+        }
+      }
+    );
   }
 
   createDailyForecast(list: Array<any>) {
     this.forecastList = [];
     //Select only the date i.e '2020-03-02'
-    let dates = new Set(list.map(a=>a.dt_txt.substring(0,10)));
+    let dates = new Set(list.map(a => a.dt_txt.substring(0, 10)));
 
     dates.forEach(date => {
       //get items by each day
-      let dayForecast = list.filter(x=>x.dt_txt.includes(date));
-      let day : any = {};
+      let dayForecast = list.filter(x => x.dt_txt.includes(date));
+      let day: any = {};
 
       day.tempMin = dayForecast.reduce((min, p) => p.main.temp_min < min ? p.main.temp_min : min, dayForecast[0].main.temp_min);
       day.tempMax = dayForecast.reduce((max, p) => p.main.temp_max > max ? p.main.temp_max : max, dayForecast[0].main.temp_max);

@@ -19,21 +19,20 @@
                   <ion-col class="w-70" class="day-info">
                     <h2><strong>{{day.date | date: 'EE, MMM dd, yyyy'}}</strong></h2>
                     <h3><strong>{{day.description}}</strong></h3>
-                    <p>Low: {{day.tempMin}}</p>
-                    <p>High: {{day.tempMax}}</p>
+                    <p>Low: {{day.tempMin | number:'1.0-0'}} &deg;F</p>
+                    <p>High: {{day.tempMax | number:'1.0-0'}} &deg;F</p>
                   </ion-col>
                 </ion-row>
-              </ion-item>
-              <ion-item>
-                <strong>Version: </strong> 1.0.0
-              </ion-item>
-              <ion-item>
-                <strong>Description: </strong> Simple weather app
               </ion-item>
             </ion-list>
           </ion-col>
         </ion-row>
       </ion-col>
+    </ion-row>
+    <ion-row *ngIf="error">
+      <h2>There was an error: </h2>
+      <p>Contact the administrator and share this info</p>
+      <p class="danger">{{error.code}} - {{error.message}}</p>
     </ion-row>
   </ion-grid>
 </ion-content>

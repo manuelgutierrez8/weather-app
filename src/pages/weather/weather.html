@@ -14,5 +14,10 @@
         <h4>{{currentWeather.description}}</h4>
       </ion-col>
     </ion-row>
+    <ion-row *ngIf="error">
+      <h2>There was an error: </h2>
+      <p>Contact the administrator and share this info</p>
+      <p class="danger">{{error.code}} - {{error.message}}</p>
+    </ion-row>
   </ion-grid>
 </ion-content>
