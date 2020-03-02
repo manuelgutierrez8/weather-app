@@ -27,10 +27,11 @@ export class WeatherPage {
 
         this.currentWeather = {};
         this.currentWeather.temperature = data.main.temp;
-        this.currentWeather.name = '';
+        this.currentWeather.description = '';
 
         if(data.weather.length > 0) {
-          this.currentWeather.name = data.weather[0].main;
+          this.currentWeather.description = data.weather[0].main;
+          this.currentWeather.image = this.weatherProvider.setWeatherImage(data.weather[0].icon);
         }
       }
       console.log(response);

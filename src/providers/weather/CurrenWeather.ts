@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { weatherImages } from '../../enum/weather-images';
 
 /*
   Generated class for the WeatherProvider provider.
@@ -23,8 +24,15 @@ export class CurrentWeatherProvider {
     queryString += '&q=' + (location != '' ? location : this.defaultLocation);
     queryString += '&APPID=' + this.apiKey;
 
-    return this.http.get<any>(`${this.weatherUrl}${queryString}`, {observe: 'response'});
+    return this.http.get<any>(`${this.weatherUrl}${queryString}`, { observe: 'response' });
+  }
 
+  setWeatherImage(icon: string) {
+    let imagePath = 'assets/imgs/';
+    
+    imagePath += weatherImages[icon] ? weatherImages[icon] : 'dunno.png';
+
+    return imagePath;
   }
 
 }

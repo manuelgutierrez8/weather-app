@@ -42,6 +42,25 @@ $colors: (
 );
 
 
+//Tab Styling
+$toolbar-md-background: color($colors, primary);
+$tabs-md-background: color($colors, primary);
+$tabs-md-color: color($colors, light);
+
+$tabs-md-tab-icon-color-active: color($colors, light);
+$tabs-ios-tab-icon-color-active: color($colors, light);
+
+$tabs-md-tab-text-color-active: color($colors, light);
+$tabs-ios-tab-text-color-active: color($colors, light);
+
+$tabs-md-tab-icon-color: color($colors, dark);
+$tabs-ios-tab-icon-color: color($colors, dark);
+
+$tabs-md-tab-text-color: color($colors, dark);
+$tabs-ios-tab-text-color: color($colors, dark);
+
+
+
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here
